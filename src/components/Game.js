@@ -25,7 +25,7 @@ class Game extends React.Component {
         lose: false
       },
       canConfirm: true,
-      isModalOpen: true,
+      isModalOpen: false,
     }
     this.colorWheel = ['#000000', '#ffffff', '#F44040', '#80D484', '#40B3F4', '#E3E559'];
     this.turnsLeftColors = ['#F7DAA2', '#F0D193', '#E9C682', '#E2BC72', '#DBB262', '#D4A852', '#CE9F43', '#C69432', '#C08B23', '#B98113'];
