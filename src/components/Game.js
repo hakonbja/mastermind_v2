@@ -76,51 +76,49 @@ class Game extends React.Component {
     this.refTimer.current.restartTimer();
   }
 
+  getKeyPegs(colors, secretColors) {
+    let keyPegs = [];
+    let whiteIndexes = [];
+
+    // find perfect matches
+    colors.forEach((color, i) => {
+      if (color === secretColors[i]) {
+        keyPegs.push('white');
+        whiteIndexes.push(i);
+      }
+    })
+
+    // remove colors that have been correctly guessed from colors and secretColors
+    whiteIndexes.forEach((i) => {
+      colors.splice(i, 1, null);
+      secretColors.splice(i, 1, null);
+    });
+
+    // find partial matches (black pegs)
+    colors.forEach((color => {
+      if (color && secretColors.indexOf(color) > -1) {
+        keyPegs.push('black');
+        secretColors.splice(secretColors.indexOf(color), 1);
+      }
+    }));
+
+    // fill keyPegs with empties if less than 4
+    while (keyPegs.length < 4) {
+      keyPegs[keyPegs.length] = null;
+    }
+
+    return keyPegs;
+  }
+
   handleConfirmClick() { // TODO: split this into smaller functions
     if (this.state.isGameOver || !this.state.canConfirm) {return}
 
-    // compare colors to secretColors and create key-peg colors
-
-    const getKeyPegs = (colors, secretColors) => {
-      let keyPegs = [];
-      let whiteIndexes = [];
-
-      // find perfect matches
-      colors.forEach((color, i) => {
-        if (color === secretColors[i]) {
-          keyPegs.push('white');
-          whiteIndexes.push(i);
-        }
-      })
-
-      // remove colors that have been correctly guessed from colors and secretColors
-      whiteIndexes.forEach((i) => {
-        colors.splice(i, 1, null);
-        secretColors.splice(i, 1, null);
-      });
-
-      // find partial matches (black pegs)
-      colors.forEach((color => {
-        if (color && secretColors.indexOf(color) > -1) {
-          keyPegs.push('black');
-          secretColors.splice(secretColors.indexOf(color), 1);
-        }
-      }));
-
-      // fill keyPegs with empties if less than 4
-      while (keyPegs.length < 4) {
-        keyPegs[keyPegs.length] = null;
-      }
-
-      return keyPegs;
-    }
-
     let colors = this.state.colors.slice();
     let secretColors = this.state.secretColors.slice();
-    let keyPegs = getKeyPegs(colors, secretColors);
+    let keyPegs = this.getKeyPegs(colors, secretColors);
   
     // check if player has won by looking at white keyPegs
-    const winStatus = ((keyPegs) => {
+    const didWin = ((keyPegs) => {
       for (let i = 0; i < keyPegs.length; i++) {
         if (keyPegs[i] !== "white") {
           return false;
@@ -129,7 +127,7 @@ class Game extends React.Component {
       return true;
     })(keyPegs);
 
-    if (winStatus) {
+    if (didWin) {
       this.setState( prevState => {
         return {
           turnsLeft: prevState.turnsLeft - 1,
@@ -146,7 +144,7 @@ class Game extends React.Component {
       return;
     }
 
-    // push key-pegs result and the newest colors guess to a newHistory object
+    // unshift key-pegs result and the newest colors guess to a newHistory object
     let newHistory = this.state.history.slice();
     newHistory.unshift({
       colors: this.state.colors.slice(),
@@ -162,7 +160,7 @@ class Game extends React.Component {
       }
     });
 
-    // if turns are up blink losing signal and show secretColors, still lower turnsLeft
+    // if turns are up blink losing signal and show secretColors and lower turnsLeft
     if (this.state.turnsLeft === 1) {
       this.setState({
         turnsLeft: 0,
