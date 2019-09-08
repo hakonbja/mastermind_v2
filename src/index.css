@@ -109,7 +109,7 @@ h2.underline::after {
 }
 
 .btn:active {
-  --button-depth: 2px;
+  --button-depth: 1px;
   bottom: calc(var(--button-depth) * -1);
   left: calc(var(--button-depth) * -1);
 }
