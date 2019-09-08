@@ -2,6 +2,7 @@
 :root {
   --clr-grey: #B0B1AE;
   --clr-lightgrey: #E6EBE0;
+  --clr-darkgrey: #828181;
   --clr-background: #EAE4D4;
   --clr-button-walls: #8C6D30;
   --background-gradient: linear-gradient(#DDB463, rgba(190, 148, 64, 0.95));
@@ -22,6 +23,7 @@ body {
   font-family: 'VT323' , monospace;
   text-align: center;
   cursor: default;
+  color: black;
 }
 
 h1, h2 {
@@ -112,6 +114,12 @@ h2.underline::after {
   left: calc(var(--button-depth) * -1);
 }
 
+.btn.disabled {
+  --button-depth: 3px;
+  bottom: auto;
+  left: auto;
+}
+
 #game {
   position: relative;
   min-width: 320px;
@@ -177,6 +185,7 @@ header,
   justify-content: center;
   align-items: center;
   margin-right: 15px;
+  color: rgba(0,0,0, 0.5);
 }
 
 .rack > .circle:last-of-type {
@@ -275,6 +284,12 @@ header,
 .confirm > svg {
   width: 20px;
   height: auto;
+  stroke: black;
+}
+
+.confirm.disabled svg {
+  stroke: var(--clr-darkgrey);
+  cursor: default;
 }
 
 .confirm.btn::before,

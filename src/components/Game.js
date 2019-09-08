@@ -289,6 +289,7 @@ class Game extends React.Component {
               keyPegs={this.state.keyPegs}
               handleColorClick={this.handleColorClick}
               handleConfirmClick={this.handleConfirmClick}
+              canConfirm={this.state.canConfirm}
               renderKeyPegs={this.renderKeyPegs}
             />
             <OldRacks

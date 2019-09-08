@@ -27,11 +27,11 @@ const CurrentRack = (props) => {
         {circles}
       </div>
       <div
-        className="confirm btn"
+        className={"confirm btn " + (!props.canConfirm ? "disabled" : "")}
         onClick={props.handleConfirmClick}
       >
         <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 8.88764L5.12195 15L12.5 1" stroke="black" strokeWidth="2"/>
+          <path d="M1 8.88764L5.12195 15L12.5 1" strokeWidth="2"/>
         </svg>
       </div>
     </div>
