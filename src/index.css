@@ -168,7 +168,6 @@ header,
 }
 
 .rack {
-  position: relative;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -177,19 +176,24 @@ header,
   box-sizing: border-box;
 }
 
-.rack > .hint-arrow {
+.hint-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 5px;
+  bottom: -30px;
+  left: 53%;
+  transform: translateX(-50%) rotate(-90deg);
   animation: arrow 750ms linear infinite alternate;
 }
 
+.hint-arrow > svg {
+  fill: rgb(185, 129, 19);
+}
+
 @keyframes arrow {
-  to {left: 12px}
+  to {bottom: -36px}
 }
 
 .rack > .circle {
+  position: relative;
   background-color: var(--clr-grey);
   height: 40px;
   width: 40px;
