@@ -29,3 +29,15 @@ exports.getKeyPegs = (colors, secretColors) => {
 
   return keyPegs;
 }
+
+exports.didWin = ((keyPegs) => {
+  if (keyPegs.length !== 4) {
+    return false;
+  }
+  for (let i = 0; i < keyPegs.length; i++) {
+    if (keyPegs[i] !== "white") {
+      return false;
+    }
+  }
+  return true;
+});

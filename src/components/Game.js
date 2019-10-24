@@ -6,7 +6,7 @@ import SecretColors from './SecretColors';
 import StatusBar from './StatusBar';
 import { CurrentRack, OldRacks } from './Racks';
 import Instructions from './Instructions';
-import { getKeyPegs } from './Utils.js'
+import { getKeyPegs, didWin } from './Utils.js'
 
 // TODO: put functions into another file
 
@@ -85,15 +85,6 @@ class Game extends React.Component {
     let keyPegs = getKeyPegs(colors, secretColors);
   
     // check if player has won by looking at white keyPegs
-    const didWin = ((keyPegs) => {
-      for (let i = 0; i < keyPegs.length; i++) {
-        if (keyPegs[i] !== "white") {
-          return false;
-        }
-      }
-      return true;
-    })(keyPegs);
-
     if (didWin) {
       this.setState( prevState => {
         return {

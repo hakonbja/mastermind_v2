@@ -1,5 +1,7 @@
-import { getKeyPegs } from './Utils.js'
+import { getKeyPegs, didWin } from './Utils.js'
 
+
+// getKeyPegs()
 test('correct guess', () => {
   const guess = ['a', 'a', 'a', 'a'];
   const answer = ['a', 'a', 'a', 'a'];
@@ -33,4 +35,27 @@ test('mix of correct and partially correct guesses', () => {
   const answer = ['a', 'b', 'c', 'd'];
   const keyPegs = getKeyPegs(guess, answer);
   expect(keyPegs).toEqual(["white", "white", "black", "black"]);
+});
+
+test('no guess', () => {
+  const guess = [];
+  const answer = ['a', 'b', 'c', 'd'];
+  const keyPegs = getKeyPegs(guess, answer);
+  expect(keyPegs).toEqual([null, null, null, null]);
+});
+
+// didWin()
+test('did win', () => {
+  const status = didWin(["white", "white", "white", "white"]);
+  expect(status).toBeTruthy();
+});
+
+test('did not win', () => {
+  const status = didWin(["white", "white", "white", "black"]);
+  expect(status).toBeFalsy();
+});
+
+test('incomplete keyPegs array', () => {
+  const status = didWin(["white", "white", "white"]);
+  expect(status).toBeFalsy();
 });
