@@ -8,9 +8,8 @@ exports.getKeyPegs = (colors, secretColors) => {
   guess.forEach((color, i) => {
     if (color === answer[i]) {
       keyPegs.push('white');
-      // whiteIndexes.push(i);
-      guess.splice(i, 1, null);
-      answer.splice(i, 1, null);
+      guess[i] = null;
+      answer[i] = null;
       i--;
     }
   })
