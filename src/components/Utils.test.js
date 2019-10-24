@@ -27,3 +27,10 @@ test('only partially correct guesses', () => {
   const keyPegs = getKeyPegs(guess, answer);
   expect(keyPegs).toEqual(["black", "black", "black", "black"]);
 });
+
+test('mix of correct and partially correct guesses', () => {
+  const guess = ['a', 'b', 'd', 'c'];
+  const answer = ['a', 'b', 'c', 'd'];
+  const keyPegs = getKeyPegs(guess, answer);
+  expect(keyPegs).toEqual(["white", "white", "black", "black"]);
+});
