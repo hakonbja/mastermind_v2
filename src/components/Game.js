@@ -6,6 +6,7 @@ import SecretColors from './SecretColors';
 import StatusBar from './StatusBar';
 import { CurrentRack, OldRacks } from './Racks';
 import Instructions from './Instructions';
+import { getKeyPegs } from './Utils.js'
 
 // TODO: put functions into another file
 
@@ -76,46 +77,12 @@ class Game extends React.Component {
     this.refTimer.current.restartTimer();
   }
 
-  getKeyPegs(colors, secretColors) {
-    let keyPegs = [];
-    let whiteIndexes = [];
-
-    // find perfect matches
-    colors.forEach((color, i) => {
-      if (color === secretColors[i]) {
-        keyPegs.push('white');
-        whiteIndexes.push(i);
-      }
-    })
-
-    // remove colors that have been correctly guessed from colors and secretColors
-    whiteIndexes.forEach((i) => {
-      colors.splice(i, 1, null);
-      secretColors.splice(i, 1, null);
-    });
-
-    // find partial matches (black pegs)
-    colors.forEach((color => {
-      if (color && secretColors.indexOf(color) > -1) {
-        keyPegs.push('black');
-        secretColors.splice(secretColors.indexOf(color), 1);
-      }
-    }));
-
-    // fill keyPegs with empties if less than 4
-    while (keyPegs.length < 4) {
-      keyPegs[keyPegs.length] = null;
-    }
-
-    return keyPegs;
-  }
-
   handleConfirmClick() { // TODO: split this into smaller functions
     if (this.state.isGameOver || !this.state.canConfirm) {return}
 
     let colors = this.state.colors.slice();
     let secretColors = this.state.secretColors.slice();
-    let keyPegs = this.getKeyPegs(colors, secretColors);
+    let keyPegs = getKeyPegs(colors, secretColors);
   
     // check if player has won by looking at white keyPegs
     const didWin = ((keyPegs) => {
