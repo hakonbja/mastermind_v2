@@ -85,7 +85,7 @@ class Game extends React.Component {
     let keyPegs = getKeyPegs(colors, secretColors);
   
     // check if player has won by looking at white keyPegs
-    if (didWin) {
+    if (didWin(keyPegs)) {
       this.setState( prevState => {
         return {
           turnsLeft: prevState.turnsLeft - 1,
